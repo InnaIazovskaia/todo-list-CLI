@@ -17,15 +17,15 @@ const menuOptions = [
       },
       {
         value: "3",
-        name: `${"3".green} List complied tasks`,
+        name: `${"3".green} List complited tasks`,
       },
       {
         value: "4",
-        name: `${"4".green} List pendin tasks`,
+        name: `${"4".green} List pending tasks`,
       },
       {
         value: "5",
-        name: `${"5".green} Complete ta(s)`,
+        name: `${"5".green} Complete task(s)`,
       },
       {
         value: "6",
@@ -72,7 +72,7 @@ const reedInput = async (message) => {
       message,
       validate(value) {
         if (value.length === 0) {
-          return "Por favor ingrese un valor";
+          return "Please enter a value";
         }
         return true;
       },
