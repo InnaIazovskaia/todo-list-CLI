@@ -4,11 +4,18 @@ const {
   inquirerPause,
   reedInput,
 } = require("./helpers/inquirer");
+const { saveDB, reedDB } = require("./helpers/saveFile");
 const Tasks = require("./models/tasks");
 
 const main = async () => {
   let option = "";
   const tasks = new Tasks();
+
+  const tasksDB = reedDB();
+
+  if (tasksDB) {
+    tasks.loadTasksFromArray(tasksDB);
+  }
 
   do {
     option = await inquirerMenu();
@@ -20,9 +27,11 @@ const main = async () => {
         break;
 
       case "2":
-        console.log(tasks.listArr());
+        tasks.tasksList();
         break;
     }
+
+    saveDB(tasks.listArr);
 
     await inquirerPause();
   } while (option !== "0");
