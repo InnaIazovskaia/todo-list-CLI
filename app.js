@@ -29,6 +29,14 @@ const main = async () => {
       case "2":
         tasks.tasksList();
         break;
+
+      case "3":
+        tasks.filterTasksList(true);
+        break;
+
+      case "4":
+        tasks.filterTasksList(false);
+        break;
     }
 
     saveDB(tasks.listArr);

@@ -42,6 +42,31 @@ class Tasks {
       console.log(`${taskNumber} ${description} :: ${state}`);
     });
   }
+
+  filterTasksList(complete = true) {
+    console.log();
+
+    let counter = 0;
+
+    this.listArr.forEach((task) => {
+      const { description, completeIn } = task;
+      const state = completeIn ? "Complete".green : "Pending".red;
+
+      if (complete) {
+        if (completeIn) {
+          counter += 1;
+          console.log(
+            `${(counter + ".").green} ${description} :: ${completeIn.green}`
+          );
+        }
+      } else {
+        if (!completeIn) {
+          counter += 1;
+          console.log(`${(counter + ".").green} ${description} :: ${state}`);
+        }
+      }
+    });
+  }
 }
 
 module.exports = Tasks;
