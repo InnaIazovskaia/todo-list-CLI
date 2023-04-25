@@ -5,6 +5,7 @@ const {
   reedInput,
   tasksListToDelete,
   confirm,
+  showListChecklist,
 } = require("./helpers/inquirer");
 const { saveDB, reedDB } = require("./helpers/saveFile");
 const Tasks = require("./models/tasks");
@@ -38,6 +39,11 @@ const main = async () => {
 
       case "4":
         tasks.filterTasksList(false);
+        break;
+
+      case "5":
+        const ids = await showListChecklist(tasks.listArr);
+        tasks.toggleToComplete(ids);
         break;
 
       case "6":
