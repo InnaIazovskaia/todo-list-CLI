@@ -50,17 +50,16 @@ const inquirerMenu = async () => {
   return option;
 };
 
-const inquirerPause = async () => {
+const pausa = async () => {
   const question = [
     {
       type: "input",
       name: "enter",
-      message: `\nPress ${`ENTER`.red} to continue\n`,
+      message: `Press ${"enter".green} to continue`,
     },
   ];
 
   console.log("\n");
-
   await inquirer.prompt(question);
 };
 
@@ -83,8 +82,53 @@ const reedInput = async (message) => {
   return description;
 };
 
+const tasksListToDelete = async (tasks = []) => {
+  const choices = tasks.map((task, i) => {
+    const taskNumber = `${i + 1}`.green;
+
+    return {
+      value: task.id,
+      name: `${taskNumber} ${task.description}`,
+    };
+  });
+
+  choices.unshift({
+    value: "0",
+    name: "0.".green + " Cancel",
+  });
+
+  const questions = [
+    {
+      type: "list",
+      name: "id",
+      message: "Delete",
+      choices,
+    },
+  ];
+
+  const { id } = await inquirer.prompt(questions);
+
+  return id;
+};
+
+const confirm = async (message) => {
+  const question = [
+    {
+      type: "confirm",
+      name: "ok",
+      message,
+    },
+  ];
+
+  const { ok } = await inquirer.prompt(question);
+
+  return ok;
+};
+
 module.exports = {
   inquirerMenu,
-  inquirerPause,
+  pausa,
   reedInput,
+  tasksListToDelete,
+  confirm,
 };

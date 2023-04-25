@@ -1,8 +1,10 @@
 require("colors");
 const {
   inquirerMenu,
-  inquirerPause,
+  pausa,
   reedInput,
+  tasksListToDelete,
+  confirm,
 } = require("./helpers/inquirer");
 const { saveDB, reedDB } = require("./helpers/saveFile");
 const Tasks = require("./models/tasks");
@@ -37,11 +39,24 @@ const main = async () => {
       case "4":
         tasks.filterTasksList(false);
         break;
+
+      case "6":
+        const id = await tasksListToDelete(tasks.listArr);
+
+        if (id !== "0") {
+          const ok = await confirm("Are you sure?");
+          if (ok) {
+            tasks.deleteTask(id);
+            console.log("Task deleted");
+          }
+        }
+
+        break;
     }
 
     saveDB(tasks.listArr);
 
-    await inquirerPause();
+    await pausa();
   } while (option !== "0");
 };
 
